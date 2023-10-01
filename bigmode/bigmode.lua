@@ -1,24 +1,3 @@
---[[
-* Addons - Copyright (c) 2021 Ashita Development Team
-* Contact: https://www.ashitaxi.com/
-* Contact: https://discord.gg/Ashita
-*
-* This file is part of Ashita.
-*
-* Ashita is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* Ashita is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with Ashita.  If not, see <https://www.gnu.org/licenses/>.
---]]
-
 addon.name      = 'bigmode';
 addon.author    = 'JayTDawgzone';
 addon.version   = '1.0';
@@ -27,7 +6,7 @@ addon.desc      = 'Allows changing the players model size with commands.';
 
 require('common');
 local chat = require('chat');
-local ffi = require('ffi');
+
 
 ----------------------------------------------------------------------------------------------------
 -- Configurations
@@ -40,7 +19,15 @@ local bigmode = T{
 };
 
 
+----------------------------------------------------------------------------------------------------
+-- Print Help
+
+-- Credit: atom0s | Addons - Copyright (c) 2021 Ashita Development Team | Contact: https://www.ashitaxi.com/ https://discord.gg/Ashita
+----------------------------------------------------------------------------------------------------
+
+
 local function print_help(isError)
+
 
     if (isError) then
         print(chat.header(addon.name):append(chat.error('Invalid command syntax for command: ')):append(chat.success('/' .. addon.name)));
@@ -62,12 +49,20 @@ local function print_help(isError)
 
 end
 
+----------------------------------------------------------------------------------------------------
+-- Load Addon
+----------------------------------------------------------------------------------------------------
+
 ashita.events.register('load', 'load_cb', function()
 
     print(chat.header(addon.name):append(chat.success('Go big mode.')));
     print_help(false);
 
 end)
+
+----------------------------------------------------------------------------------------------------
+-- Commands
+----------------------------------------------------------------------------------------------------
 
 ashita.events.register('command', 'command_cb', function(e)
 
@@ -127,6 +122,11 @@ ashita.events.register('command', 'command_cb', function(e)
         end
     end
 end)
+
+----------------------------------------------------------------------------------------------------
+-- Unload Addon
+----------------------------------------------------------------------------------------------------
+
 
 ashita.events.register('unload', 'unload_cb', function ()
 
