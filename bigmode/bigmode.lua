@@ -51,12 +51,13 @@ local function print_help(isError)
     local cmds = T{
         { '/bigmode', 'Toggles bigmode on and off.' },
         { '/bigmode help', 'Displays the addons help information.' },
-        { '/bigmode size <number>', 'Sets the model size to apply to the player.' },
+        { '/bigmode size <value>', 'Sets the model size to apply to the player.' },
+        {'<value> examples', '2 (bigger) .1 (smaller) -1 (default)'}
     };
 
     -- Print the command list..
     cmds:ieach(function (v)
-        print(chat.header(addon.name):append(chat.error('Usage: ')):append(chat.message(v[1]):append(' - ')):append(chat.color1(6, v[2])));
+        print(chat.header(addon.name):append(chat.error('Usage: ')):append(chat.message(v[1]):append(' | ')):append(chat.color1(6, v[2])));
     end);
 
 end
