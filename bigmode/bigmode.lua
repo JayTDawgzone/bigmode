@@ -1,6 +1,6 @@
 addon.name      = 'bigmode';
 addon.author    = 'JayTDawgzone';
-addon.version   = '1.0';
+addon.version   = '1.1';
 addon.desc      = 'Allows changing the players model size with commands.';
 
 
@@ -14,8 +14,8 @@ local chat = require('chat');
 
 local bigmode = T{
     enabled = false,
-    defaultModelSize = GetPlayerEntity().ModelSize;
-    newModelSize = GetPlayerEntity().ModelSize;
+    defaultModelSize = GetPlayerEntity().ModelSize,
+    newModelSize = GetPlayerEntity().ModelSize,
 };
 
 
@@ -39,6 +39,7 @@ local function print_help(isError)
         { '/bigmode', 'Toggles bigmode on and off.' },
         { '/bigmode help', 'Displays the addons help information.' },
         { '/bigmode size <value>', 'Sets the model size to apply to the player.' },
+        { '/bigmode target <value>', 'Sets the model size to apply to the player\'s target'},
         {'<value> examples', '2 (bigger) .1 (smaller) -1 (default)'}
     };
 
@@ -112,6 +113,28 @@ ashita.events.register('command', 'command_cb', function(e)
             elseif not bigmode.enabled then
                 print(chat.header(addon.name):append(chat.error('Big Mode is not enabled. Use /bigmode to enable/disable.')));
 
+            end
+
+        elseif table.contains({'target', 't'}, command_args[2]) then
+
+            if (tonumber(command_args[3])) and bigmode.enabled then
+
+                local targetModelSize = tonumber(command_args[3]);
+                local player = GetPlayerEntity();
+
+                if (player == nil) then
+                    return;
+                end
+
+                local target = GetEntity(AshitaCore:GetMemoryManager():GetTarget():GetTargetIndex(0));
+                if (target == nil) then
+                    return;
+                end
+
+                target.ModelSize = targetModelSize;
+                target.ModelUpdateFlags = 0x10;
+
+            
             end
 
         elseif table.contains({'help'}, command_args[2]) then
